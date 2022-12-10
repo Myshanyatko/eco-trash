@@ -34,6 +34,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MainAdminComponent } from './components/main/main-admin/main-admin.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { AdminUserComponent } from './components/user/admin-user/admin-user.component';
+import { TrashComponent } from './components/trash/trash/trash.component';
+import { TrashListComponent } from './components/trash/trash-list/trash-list.component';
+import { TrashEffects } from './store/effects/trash.effects';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { AdminUserComponent } from './components/user/admin-user/admin-user.comp
     MainAdminComponent,
     UserListComponent,
     AdminUserComponent,
+    TrashComponent,
+    TrashListComponent,
   ],
   imports: [
     FormsModule,
@@ -64,7 +69,7 @@ import { AdminUserComponent } from './components/user/admin-user/admin-user.comp
     TuiInputCountModule,
     TuiTextfieldControllerModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, UserEffects]),
+    EffectsModule.forRoot([AuthEffects, UserEffects, TrashEffects]),
     TuiLetModule,
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,

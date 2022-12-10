@@ -1,0 +1,41 @@
+<div *ngIf="trash$ | async as trash" class="tui-container">
+    <div class="user-info-block">
+      
+  
+      <div class="user-info">
+        <h2 class="name">
+          {{ trash.id }} 
+        </h2>
+  
+        <div class="address">
+          <p class="label">адрес</p>
+          <p class="item">{{ trash.address }}</p>
+        </div>
+        
+      </div>
+      <button tuiButton (click)="openStory()">Показать журнал операций</button>
+      <table class="tui-table" *ngIf="story$ | async as story">
+        <tbody>
+          <tr class="tui-table__tr tui-table__tr_border_none">
+            <th class="tui-table__th">Дата и время</th>
+            <th class="tui-table__th">Действие</th>
+          </tr>
+          <tr
+            class="tui-table__tr tui-table__tr_border_none"
+            *ngFor="let item of story"
+          >
+            <td class="tui-table__td">
+              <time datetime="item.date">{{ item.date.slice(0, 10)}} {{ item.date.slice(11, 16)}}</time>
+            </td>
+            <td class="tui-table__td">
+              {{ item.operation }}
+            </td>
+          </tr>
+        </tbody>
+        <a (click)="closeStory()">скрыть журнал</a>
+      </table>
+    </div>
+    <button tuiButton *ngIf="trash.isDisabled" apperance="accent"> Заблокировать  </button>
+    <button tuiButton *ngIf="!trash.isDisabled"> Разблокировать  </button>
+  </div>
+  

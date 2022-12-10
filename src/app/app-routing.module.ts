@@ -1,3 +1,5 @@
+import { TrashComponent } from './components/trash/trash/trash.component';
+import { TrashListComponent } from './components/trash/trash-list/trash-list.component';
 import { AdminUserComponent } from './components/user/admin-user/admin-user.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserComponent } from './components/user/user/user.component';
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'admin/main', component: MainAdminComponent },
   { path: 'admin/user-list/filter/:filter', component: UserListComponent },
   { path: 'admin/user/:id', component: AdminUserComponent },
+  { path: 'admin/trash/:id', component: TrashComponent },
+  { path: 'admin/trash-list/filter/:filter', component: TrashListComponent },
 ];
 
 @NgModule({

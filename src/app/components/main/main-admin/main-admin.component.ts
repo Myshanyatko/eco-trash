@@ -4,6 +4,7 @@ import { AppState } from './../../../store/state/app.state';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { getTrashs } from 'src/app/store/actions/trash.actions';
 
 @Component({
   selector: 'app-main-admin',
@@ -28,5 +29,8 @@ export class MainAdminComponent implements OnInit {
     this.store$.dispatch(getUsers({ filter: this.authForm.value.user }));
     this.router.navigate(['admin/user-list/filter/'+this.authForm.value.user]);
   }
-  searchTrashCan() {}
+  searchTrashCan() {
+    this.store$.dispatch(getTrashs({ filter: this.authForm.value.trashCan }));
+    this.router.navigate(['admin/trash-list/filter/'+this.authForm.value.trashCan]);
+  }
 }

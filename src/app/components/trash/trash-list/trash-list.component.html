@@ -1,0 +1,16 @@
+<div class="tui-container" *ngIf="trashs$ | async as trashs">
+  <div class="users" *ngFor="let trash of trashs">
+    <div class="user" (click)="getTrash(trash.id)">
+        <tui-avatar
+        new
+        class="icon-user-avatar"
+        [rounded]="false"
+        text="avatar"
+        size="s"
+        avatarUrl="tuiIconTrashLarge"
+      ></tui-avatar>
+      <h4>{{ trash.id }}</h4>
+      <p>{{ trash.address }}</p>
+    </div>
+  </div>
+</div>
