@@ -1,0 +1,11 @@
+.tui-container {
+  width: 600px;
+  margin-top: 100px;
+}
+.input {
+  width: 500px;
+  margin-bottom: 10px;
+}
+.title {
+    margin-bottom: 30px;
+}
