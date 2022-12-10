@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { UserState } from './../state/user.state';
 import { createSelector } from '@ngrx/store';
 import { AppState } from './../state/app.state';
@@ -10,4 +11,7 @@ export const selectUser = createSelector(
 export const selectStory = createSelector(
   selectUsers,
   (state: UserState) => state.story
+);
+export const selectDate = createSelector(selectUsers, (state: UserState) =>
+  state.story?.map((item) => item.date)
 );

@@ -1,6 +1,6 @@
 export interface Story {
   id: number;
-  date: Date;
+  date: string;
   operation: string;
   userId: number
 }

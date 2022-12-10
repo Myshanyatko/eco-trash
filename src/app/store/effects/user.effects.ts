@@ -29,7 +29,7 @@ export class UserEffects {
       ofType(getStory),
       mergeMap((action) =>
         this.user.getStory(action.id).pipe(
-          map((res) => setStory({ story: res })),
+          map((res) => setStory({ story: res})),
           catchError((err) => {
             this.alert.showNotificationError(err.error).subscribe();
             return EMPTY;

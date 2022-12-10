@@ -48,7 +48,7 @@
           *ngFor="let item of story"
         >
           <td class="tui-table__td">
-            {{ item.date }}
+            <time datetime="item.date">{{ item.date.slice(0, 10)}} {{ item.date.slice(11, 16)}}</time>
           </td>
           <td class="tui-table__td">
             {{ item.operation }}

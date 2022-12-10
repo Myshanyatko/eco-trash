@@ -7,6 +7,7 @@ import {
 import {
   selectUser,
   selectStory,
+  selectDate,
 } from './../../../store/selectors/user.selector';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
@@ -22,12 +23,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   user$ = this.store$.select(selectUser);
-  // story = [
-  //   { date: '16-04-2001 12:09', operation: 'начисление 30 баллов' },
-  //   { date: '16-04-2001 12:09', operation: 'начисление 30 баллов' },
-  //   { date: '16-04-2001 12:09', operation: 'начисление 30 баллов' },
-  // ];
   story$ = this.store$.select(selectStory);
+  date$ = this.store$.select(selectDate);
   constructor(
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
