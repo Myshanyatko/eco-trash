@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators , FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { login } from 'src/app/store/actions/auth.actions';
 import { AppState } from 'src/app/store/state/app.state';
@@ -21,7 +21,6 @@ export class AuthComponent implements OnInit {
   }
   login(): void {
     this.store$.dispatch(login({email: this.authForm.value.login, password: this.authForm.value.password}))
-    console.log(this.authForm.value.login, this.authForm.value.password);
     
   }
 }

@@ -1,0 +1,15 @@
+<form [formGroup]="authForm"  class="form">
+    <h2 class="title">Административная панель</h2>
+    <p>Просматривайте данные о пользователях</p>
+    <tui-input formControlName="user" class="input">
+      Введите имя или фамилию
+      <input tuiTextfield type="text" />
+    </tui-input>
+    <button tuiButton (click)="searchUsers()">Найти</button>
+    <p>Или отслеживайте состояние контейнера эко-пункта</p>
+    <tui-input formControlName="trashCan" class="input">
+      Введите id эко-пункта
+      <input tuiTextfield type="text" />
+    </tui-input>
+    <button tuiButton (click)="searchTrashCan()">Найти</button>
+</form>

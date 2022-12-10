@@ -1,0 +1,25 @@
+<div class="tui-container" *ngIf="users$ | async as users">
+  <div class="users" *ngFor="let user of users">
+    <div class="user" (click)="getUser(user.id)">
+        <tui-avatar
+        *ngIf="!user.pictureURL"
+        new
+        class="icon-user-avatar"
+        [rounded]="false"
+        text="avatar"
+        size="s"
+        avatarUrl="tuiIconUser"
+      ></tui-avatar>
+      <tui-avatar
+        *ngIf="user.pictureURL"
+        new
+        class="icon-user-avatar"
+        [rounded]="false"
+        text="avatar"
+        size="s"
+        [avatarUrl]="user.pictureURL"
+      ></tui-avatar>
+      <h4>{{ user.firstName }} {{ user.lastName }} {{ user.patronymic }}</h4>
+    </div>
+  </div>
+</div>

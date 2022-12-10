@@ -8,13 +8,14 @@ import {
   TuiDialogModule,
   TuiAlertModule,
   TuiButtonModule,
-  TuiNotificationModule,
+  TuiNotificationModule,TuiTextfieldControllerModule
 } from '@taiga-ui/core';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TuiInputModule,
   TuiAvatarModule,
   TuiAccordionModule,
+  TuiInputCountModule
 } from '@taiga-ui/kit';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserComponent } from './components/user/user/user.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MainAdminComponent } from './components/main/main-admin/main-admin.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
+import { AdminUserComponent } from './components/user/admin-user/admin-user.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AuthAdminComponent,
     MainComponent,
     UserComponent,
+    MainAdminComponent,
+    UserListComponent,
+    AdminUserComponent,
   ],
   imports: [
     FormsModule,
@@ -54,6 +61,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     TuiAvatarModule,
     TuiAccordionModule,
+    TuiInputCountModule,
+    TuiTextfieldControllerModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects, UserEffects]),
     TuiLetModule,

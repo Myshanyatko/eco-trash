@@ -3,6 +3,7 @@ import {
   getUser,
   getStory,
   setStory,
+  useBonuses,
 } from './../../../store/actions/user.actions';
 import {
   selectUser,
@@ -14,18 +15,34 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/state/app.state';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { tuiInputCountOptionsProvider } from '@taiga-ui/kit';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
-  providers: [TuiDestroyService],
+  selector: 'app-admin-user',
+  templateUrl: './admin-user.component.html',
+  styleUrls: ['./admin-user.component.css'],
+  providers: [
+    TuiDestroyService,
+    tuiInputCountOptionsProvider({
+      icons: {
+        up: `tuiIconChevronUp`,
+        down: `tuiIconChevronDown`,
+      },
+      appearance: `secondary`,
+      step: 10,
+      min: 0,
+      max: 324,
+    }),
+  ],
 })
-export class UserComponent implements OnInit {
+export class AdminUserComponent implements OnInit {
   user$ = this.store$.select(selectUser);
   story$ = this.store$.select(selectStory);
   date$ = this.store$.select(selectDate);
+  bonuses!: FormGroup;
   constructor(
+    private fb: FormBuilder,
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     private route: ActivatedRoute,
@@ -33,6 +50,9 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.bonuses = this.fb.group({
+      count: [],
+    });
     this.route.params
       .pipe(
         tap(({ id }) => {
@@ -51,7 +71,12 @@ export class UserComponent implements OnInit {
   closeStory() {
     this.store$.dispatch(setStory({ story: null }));
   }
-  logout(){
-    this.router.navigate([''])
+  useBoneses() {
+    this.user$.subscribe((user) => {
+      if (user != null)
+        this.store$.dispatch(
+          useBonuses({ bonuses: this.bonuses.value.count, id: user.id })
+        );
+    }).unsubscribe();
   }
 }

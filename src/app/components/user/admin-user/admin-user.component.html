@@ -36,6 +36,16 @@
         <p class="item">{{ user.bonuses }}</p>
       </div>
     </div>
+    <form [formGroup]="bonuses">
+      <label tuiLabel="Введите количество списываемых бонусов">
+        <tui-input-count
+          formControlName="count"
+          [tuiTextfieldLabelOutside]="true"
+        ></tui-input-count>
+      </label>
+      <button tuiButton (click)="useBoneses()">Списать бонусы</button>
+    </form>
+
     <button tuiButton (click)="openStory()">Показать журнал операций</button>
     <table class="tui-table" *ngIf="story$ | async as story">
       <tbody>
@@ -48,7 +58,9 @@
           *ngFor="let item of story"
         >
           <td class="tui-table__td">
-            <time datetime="item.date">{{ item.date.slice(0, 10)}} {{ item.date.slice(11, 16)}}</time>
+            <time datetime="item.date"
+              >{{ item.date.slice(0, 10) }} {{ item.date.slice(11, 16) }}</time
+            >
           </td>
           <td class="tui-table__td">
             {{ item.operation }}
@@ -58,5 +70,4 @@
       <a (click)="closeStory()">скрыть журнал</a>
     </table>
   </div>
-  <button tuiButton (click)="logout()"> Выйти </button>
 </div>

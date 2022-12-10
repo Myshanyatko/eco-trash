@@ -13,4 +13,9 @@ export class AuthService {
       params: { email: email, password: password },
     });
   }
+  loginAdmin(email: string, password: string) {
+    return this.http.get<number>(API+'/authorization/admin', {
+      params: { email: email, password: password },
+    });
+  }
 }

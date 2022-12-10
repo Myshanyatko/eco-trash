@@ -8,6 +8,10 @@ export const selectUser = createSelector(
   selectUsers,
   (state: UserState) => state.user
 );
+export const selectUsersList = createSelector(
+  selectUsers,
+  (state: UserState) => state.users
+);
 export const selectStory = createSelector(
   selectUsers,
   (state: UserState) => state.story
