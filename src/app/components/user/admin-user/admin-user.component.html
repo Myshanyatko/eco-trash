@@ -1,11 +1,12 @@
-<div *ngIf="user$ | async as user" class="tui-container">
+<div *ngIf="user$ | async as user" class="container">
   <div class="user-info-block">
+    <tui-svg src="tuiIconUndoLarge" class="back" routerLink="/.."></tui-svg>
     <div class="avatar">
       <tui-avatar
         *ngIf="!user.pictureURL"
         new
         class="icon-user-avatar"
-        [rounded]="false"
+        [rounded]="true"
         text="avatar"
         size="xxl"
         avatarUrl="tuiIconUser"
@@ -14,7 +15,7 @@
         *ngIf="user.pictureURL"
         new
         class="icon-user-avatar"
-        [rounded]="false"
+        [rounded]="true"
         text="avatar"
         size="xxl"
         [avatarUrl]="user.pictureURL"
@@ -26,27 +27,50 @@
         {{ user.lastName }} {{ user.firstName }}
         {{ user.patronymic }}
       </h2>
-
-      <div class="address">
-        <p class="label">адрес</p>
-        <p class="item">{{ user.address }}</p>
-      </div>
-      <div class="bonuses">
-        <p class="label">Бонусы</p>
-        <p class="item">{{ user.bonuses }}</p>
+      <div class="name-bonuses">
+        <div class="address">
+          <p class="label">Адрес</p>
+          <p class="item">{{ user.address }}</p>
+        </div>
+        <div class="bonuses">
+          <p class="label">Бонусы</p>
+          <p class="item">{{ user.bonuses }}</p>
+        </div>
       </div>
     </div>
-    <form [formGroup]="bonuses">
-      <label tuiLabel="Введите количество списываемых бонусов">
-        <tui-input-count
-          formControlName="count"
-          [tuiTextfieldLabelOutside]="true"
-        ></tui-input-count>
-      </label>
-      <button tuiButton (click)="useBoneses()">Списать бонусы</button>
+    <p class="bonuses-title">Списать бонусы пользователя</p>
+    <form [formGroup]="bonuses" class="bonuse">
+      <div>
+        <label tuiLabel="Введите количество списываемых бонусов" class="input">
+          <tui-input-count
+            formControlName="count"
+            [tuiTextfieldLabelOutside]="true"
+          ></tui-input-count>
+        </label>
+      </div>
+      <div class="button">
+        <button tuiButton (click)="useBoneses()">Списать</button>
+      </div>
     </form>
 
-    <button tuiButton (click)="openStory()">Показать журнал операций</button>
+    <button
+      tuiButton
+      (click)="openStory()"
+      appearance="flat"
+      class="story-button"
+      *ngIf="!isStory"
+    >
+      Показать журнал операций
+    </button>
+    <button
+      tuiButton
+      (click)="closeStory()"
+      appearance="flat"
+      class="story-button"
+      *ngIf="isStory"
+    >
+      Скрыть журнал операций
+    </button>
     <table class="tui-table" *ngIf="story$ | async as story">
       <tbody>
         <tr class="tui-table__tr tui-table__tr_border_none">
@@ -67,7 +91,6 @@
           </td>
         </tr>
       </tbody>
-      <a (click)="closeStory()">скрыть журнал</a>
     </table>
   </div>
 </div>

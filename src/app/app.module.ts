@@ -8,7 +8,7 @@ import {
   TuiDialogModule,
   TuiAlertModule,
   TuiButtonModule,
-  TuiNotificationModule,TuiTextfieldControllerModule
+  TuiNotificationModule,TuiTextfieldControllerModule, TuiSvgModule
 } from '@taiga-ui/core';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
@@ -68,6 +68,7 @@ import { TrashEffects } from './store/effects/trash.effects';
     TuiAccordionModule,
     TuiInputCountModule,
     TuiTextfieldControllerModule,
+    TuiSvgModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects, UserEffects, TrashEffects]),
     TuiLetModule,

@@ -37,6 +37,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
   ],
 })
 export class AdminUserComponent implements OnInit {
+  isStory = false
   user$ = this.store$.select(selectUser);
   story$ = this.store$.select(selectStory);
   date$ = this.store$.select(selectDate);
@@ -53,6 +54,7 @@ export class AdminUserComponent implements OnInit {
     this.bonuses = this.fb.group({
       count: [],
     });
+    // this.user$.subscribe(user => this.bonuses.addControl('count',new FormControl( user?.bonuses)))
     this.route.params
       .pipe(
         tap(({ id }) => {
@@ -64,11 +66,13 @@ export class AdminUserComponent implements OnInit {
   }
 
   openStory() {
+    this.isStory = true
     this.user$.subscribe((user) => {
       if (user != null) this.store$.dispatch(getStory({ id: user.id }));
     });
   }
   closeStory() {
+    this.isStory = false
     this.store$.dispatch(setStory({ story: null }));
   }
   useBoneses() {

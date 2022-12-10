@@ -1,15 +1,25 @@
-<form [formGroup]="authForm"  class="form">
+<div class="tui-container">
+  <form [formGroup]="authForm" class="form">
     <h2 class="title">Административная панель</h2>
-    <p>Просматривайте данные о пользователях</p>
-    <tui-input formControlName="user" class="input">
-      Введите имя или фамилию
-      <input tuiTextfield type="text" />
-    </tui-input>
-    <button tuiButton (click)="searchUsers()">Найти</button>
-    <p>Или отслеживайте состояние контейнера эко-пункта</p>
-    <tui-input formControlName="trashCan" class="input">
-      Введите id эко-пункта
-      <input tuiTextfield type="text" />
-    </tui-input>
-    <button tuiButton (click)="searchTrashCan()">Найти</button>
-</form>
+    <div class="block">
+      <div class="block-input">
+        <p>Просматривайте данные о пользователях</p>
+        <tui-input formControlName="user" class="input">
+          Введите имя или фамилию
+          <input tuiTextfield type="text" />
+        </tui-input>
+      </div>
+      <button tuiIconButton (click)="searchUsers()" iconRight="tuiIconSearch"></button>
+    </div>
+    <div class="block">
+      <div class="block-input">
+        <p>Или отслеживайте состояние контейнера эко-пункта</p>
+        <tui-input formControlName="trashCan" class="input">
+          Введите id эко-пункта
+          <input tuiTextfield type="text" />
+        </tui-input>
+      </div>
+      <button tuiIconButton (click)="searchTrashCan()" iconRight="tuiIconSearch"></button>
+    </div>
+  </form>
+</div>
