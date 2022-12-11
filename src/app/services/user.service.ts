@@ -14,7 +14,7 @@ export class UserService {
     return this.http.get<User>(API + '/users/' + id);
   }
   getUsers(filter: string) {
-    return this.http.get<User[]>(API + '/users', {
+    return this.http.get<User[]>(API + '/users/search', {
       params: { filter: filter },
     });
   }

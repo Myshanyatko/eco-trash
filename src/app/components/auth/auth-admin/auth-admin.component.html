@@ -1,22 +1,36 @@
 <div class="tui-container">
-    <form [formGroup]="authForm" (ngSubmit)="login()" class="form">
-      <h2 class="title">Авторизация администратора</h2>
-      <tui-input formControlName="login" class="input">
-        Введите логин
-        <input tuiTextfield type="login" />
-      </tui-input>
-      <tui-input formControlName="password" class="input">
-        Введите пароль
-        <input tuiTextfield type="password" />
-      </tui-input>
-      <button
-        tuiButton
-        type="submit"
-        size="m"
-        class="login"
-      >
-        Войти
-      </button>
-    </form>
-  </div>
-  
+  <form [formGroup]="authForm" (ngSubmit)="login()" class="form">
+    <h2 class="title">Авторизация администратора</h2>
+    <tui-input formControlName="login" class="input">
+      Введите логин
+      <input tuiTextfield type="login" />
+    </tui-input>
+    <div
+      class="error-message"
+      *ngIf="
+        authForm.get('login')?.invalid &&
+        (authForm.get('login')?.dirty ||
+          authForm.get('login')?.touched ||
+          errors)
+      "
+    >
+      <span>Обязательное поле</span>
+    </div>
+    <tui-input formControlName="password" class="input">
+      Введите пароль
+      <input tuiTextfield type="password" />
+    </tui-input>
+    <div
+      class="error-message"
+      *ngIf="
+        authForm.get('password')?.invalid &&
+        (authForm.get('password')?.dirty ||
+          authForm.get('password')?.touched ||
+          errors)
+      "
+    >
+      <span>Обязательное поле</span>
+    </div>
+    <button tuiButton type="submit" size="m" class="login-button">Войти</button>
+  </form>
+</div>

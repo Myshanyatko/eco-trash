@@ -1,6 +1,10 @@
 import {
+  getAble,
+  getStoryTrash,
   getTrash,
   getTrashs,
+  setAble,
+  setStoryTrash,
   setTrash,
   setTrashs,
 } from './../actions/trash.actions';
@@ -27,12 +31,57 @@ export class TrashEffects {
       )
     )
   );
+  getAbled$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getAble),
+      mergeMap((action) =>
+        this.trashService.getAble(action.id, action.able).pipe(
+          map(() => setAble({ able: action.able })),
+          catchError((err) => {
+            this.alert.showNotificationError(err.error).subscribe();
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+  setAbled$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(setAble),
+        map((action) => {
+          if ((action.able == true))
+            this.alert
+              .showNotificationError('Контейнер разблокирован')
+              .subscribe();
+          else
+            this.alert
+              .showNotificationSuccess('Контейнер заблокирован')
+              .subscribe();
+        })
+      ),
+    { dispatch: false }
+  );
   getTrashs$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getTrashs),
       mergeMap((action) =>
         this.trashService.getTrashs(action.filter).pipe(
           map((res) => setTrashs({ trashs: res })),
+          catchError((err) => {
+            this.alert.showNotificationError(err.error).subscribe();
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+  getStoryTrash$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getStoryTrash),
+      mergeMap((action) =>
+        this.trashService.getStoryTrash(action.id).pipe(
+          map((res) => setStoryTrash({ story: res })),
           catchError((err) => {
             this.alert.showNotificationError(err.error).subscribe();
             return EMPTY;

@@ -1,41 +1,95 @@
-<div *ngIf="trash$ | async as trash" class="tui-container">
-    <div class="user-info-block">
-      
-  
-      <div class="user-info">
-        <h2 class="name">
-          {{ trash.id }} 
-        </h2>
-  
+<div *ngIf="trash$ | async as trash" class="container">
+  <div class="user-info-block">
+    <tui-svg
+      src="tuiIconUndoLarge"
+      class="back"
+      routerLink="/admin/main"
+    ></tui-svg>
+    <div class="avatar">
+      <tui-avatar
+        new
+        class="icon-user-avatar"
+        [rounded]="true"
+        text="avatar"
+        size="xxl"
+        avatarUrl="tuiIconTrashLarge"
+      ></tui-avatar>
+    </div>
+
+    <div class="user-info">
+      <h2 class="name">
+        {{ trash.id }}
+      </h2>
+      <div class="name-bonuses">
         <div class="address">
-          <p class="label">адрес</p>
+          <p class="label">Адрес</p>
           <p class="item">{{ trash.address }}</p>
         </div>
-        
+        <div class="bonuses">
+          <p class="label">Наполненость</p>
+          <p class="item">Стекло:  {{ trash.glassFullness }}%</p>
+          <p class="item">Бумага: {{ trash.paperFullness }}%</p>
+          <p class="item">Пластик: {{ trash.plasticFullness }}%</p>
+        </div>
       </div>
-      <button tuiButton (click)="openStory()">Показать журнал операций</button>
-      <table class="tui-table" *ngIf="story$ | async as story">
-        <tbody>
-          <tr class="tui-table__tr tui-table__tr_border_none">
-            <th class="tui-table__th">Дата и время</th>
-            <th class="tui-table__th">Действие</th>
-          </tr>
-          <tr
-            class="tui-table__tr tui-table__tr_border_none"
-            *ngFor="let item of story"
-          >
-            <td class="tui-table__td">
-              <time datetime="item.date">{{ item.date.slice(0, 10)}} {{ item.date.slice(11, 16)}}</time>
-            </td>
-            <td class="tui-table__td">
-              {{ item.operation }}
-            </td>
-          </tr>
-        </tbody>
-        <a (click)="closeStory()">скрыть журнал</a>
-      </table>
     </div>
-    <button tuiButton *ngIf="trash.isDisabled" apperance="accent"> Заблокировать  </button>
-    <button tuiButton *ngIf="!trash.isDisabled"> Разблокировать  </button>
+    <div class="able">
+      <button
+        tuiButton
+        *ngIf="trash.disabled"
+        (click)="disable()"
+        appearance="accent"
+        class="abled"
+      >
+        Заблокировать
+      </button>
+      <button tuiButton *ngIf="!trash.disabled" (click)="able()">
+        Разблокировать
+      </button>
+    </div>
+
+    <button
+      tuiButton
+      (click)="openStory()"
+      appearance="flat"
+      class="story-button"
+      *ngIf="!isStory"
+    >
+      Показать журнал операций
+    </button>
+    <button
+      tuiButton
+      (click)="closeStory()"
+      appearance="flat"
+      class="story-button"
+      *ngIf="isStory"
+    >
+      Скрыть журнал операций
+    </button>
+    <table class="tui-table" *ngIf="story$ | async as story">
+      <tbody>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <th class="tui-table__th">Дата и время</th>
+          <th class="tui-table__th">Действие</th>
+          <th class="tui-table__th">Пользователь</th>
+        </tr>
+        <tr
+          class="tui-table__tr tui-table__tr_border_none"
+          *ngFor="let item of story"
+        >
+          <td class="tui-table__td">
+            <time datetime="item.date"
+              >{{ item.date.slice(0, 10) }} {{ item.date.slice(11, 16) }}</time
+            >
+          </td>
+          <td class="tui-table__td">
+            {{ item.operation }}
+          </td>
+          <td class="tui-table__td">
+            {{ item.userEmail }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+</div>

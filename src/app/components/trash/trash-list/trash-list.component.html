@@ -1,16 +1,26 @@
 <div class="tui-container" *ngIf="trashs$ | async as trashs">
+  <tui-svg
+    src="tuiIconUndoLarge"
+    class="back"
+    routerLink="/admin/main"
+  ></tui-svg>
+  <h2 *ngIf="route.params | async as params">
+    Найденные пункты по запросу '{{ params["filter"] }}'
+  </h2>
   <div class="users" *ngFor="let trash of trashs">
     <div class="user" (click)="getTrash(trash.id)">
-        <tui-avatar
+      <tui-avatar
         new
         class="icon-user-avatar"
         [rounded]="false"
         text="avatar"
-        size="s"
+        size="l"
         avatarUrl="tuiIconTrashLarge"
       ></tui-avatar>
-      <h4>{{ trash.id }}</h4>
-      <p>{{ trash.address }}</p>
+      <div class="">
+        <h3>{{ trash.id }}</h3>
+        <p>{{ trash.address }}</p>
+      </div>
     </div>
   </div>
 </div>

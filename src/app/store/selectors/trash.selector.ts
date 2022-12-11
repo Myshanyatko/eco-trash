@@ -13,3 +13,7 @@ export const selectTrashs = createSelector(
   selectTreshes,
   (state: TrashState) => state.trashs
 );
+export const selectStoryTrash = createSelector(
+  selectTreshes,
+  (state: TrashState) => state.storyTrash
+);

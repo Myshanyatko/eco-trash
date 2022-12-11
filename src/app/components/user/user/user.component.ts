@@ -22,6 +22,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   providers: [TuiDestroyService],
 })
 export class UserComponent implements OnInit {
+  isStory = false
   user$ = this.store$.select(selectUser);
   story$ = this.store$.select(selectStory);
   date$ = this.store$.select(selectDate);
@@ -44,11 +45,13 @@ export class UserComponent implements OnInit {
   }
 
   openStory() {
+    this.isStory = true
     this.user$.subscribe((user) => {
       if (user != null) this.store$.dispatch(getStory({ id: user.id }));
     });
   }
   closeStory() {
+    this.isStory = false
     this.store$.dispatch(setStory({ story: null }));
   }
   logout(){

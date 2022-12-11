@@ -6,7 +6,7 @@
   <div class="users" *ngFor="let user of users">
     <div class="user" (click)="getUser(user.id)">
       <tui-avatar
-        *ngIf="!user.pictureURL"
+        *ngIf="!user.photoUrl"
         new
         class="icon-user-avatar"
         [rounded]="false"
@@ -15,13 +15,13 @@
         avatarUrl="tuiIconUser"
       ></tui-avatar>
       <tui-avatar
-        *ngIf="user.pictureURL"
+        *ngIf="user.photoUrl"
         new
         class="icon-user-avatar"
         [rounded]="false"
         text="avatar"
         size="l"
-        [avatarUrl]="user.pictureURL"
+        [avatarUrl]="user.photoUrl"
       ></tui-avatar>
       <div class="">
         <h3>{{ user.firstName }} {{ user.lastName }} {{ user.patronymic }}</h3>

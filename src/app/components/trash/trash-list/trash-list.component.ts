@@ -24,7 +24,7 @@ export class TrashListComponent implements OnInit {
   constructor(
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private router: Router
   ) {}
   ngOnInit(): void {

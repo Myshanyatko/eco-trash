@@ -32,7 +32,7 @@ export const userReducer = createReducer(
         patronymic: state.user.patronymic,
         address: state.user.address,
         email: state.user.email,
-        pictureURL: state.user.pictureURL,
+        photoUrl: state.user.photoUrl,
         bonuses: state.user.bonuses - bonuses,
       };
       return { ...state, user: newUser };

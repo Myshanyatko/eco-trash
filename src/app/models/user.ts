@@ -5,6 +5,6 @@ export interface User {
     patronymic: string,
     address: string,
     email: string,
-    pictureURL: string,
+    photoUrl: string,
     bonuses: number
 }

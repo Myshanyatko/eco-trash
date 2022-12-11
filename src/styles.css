@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    background-color: #ebf2fa;
+body {
+  background-image: url("assets/background.jpg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 3%;
+  /* background-color: #ebf2fa; */
+}
+.error-message {
+  color: rgb(243, 57, 0);
+  margin-top: 5px;
 }

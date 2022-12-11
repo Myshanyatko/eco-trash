@@ -1,0 +1,30 @@
+.tui-container {
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 50px auto;
+    width: 700px;
+    box-shadow: 2px 2px 10px rgba(0, 62, 155, 0.1);
+    padding: 50px;
+    padding-top: 30px;
+  }
+  .tui-container h2 {
+    margin-bottom: 40px;
+  }
+  
+  .back {
+    color: #526ed3;
+    cursor: pointer;
+  }
+  .user {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+    justify-items: start;
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
+  .user h3,
+  p {
+    margin: 0 0 5px 0;
+  }
+  
