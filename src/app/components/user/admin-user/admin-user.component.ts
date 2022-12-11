@@ -1,9 +1,11 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import {
   getUser,
   getStory,
   setStory,
   useBonuses,
+  setUser,
 } from './../../../store/actions/user.actions';
 import {
   selectUser,
@@ -11,7 +13,7 @@ import {
   selectDate,
 } from './../../../store/selectors/user.selector';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/state/app.state';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -30,23 +32,26 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
         down: `tuiIconChevronDown`,
       },
       appearance: `secondary`,
-      step: 10,
+      step: 1,
       min: 0,
-      max: 324,
+      max: 100,
     }),
   ],
 })
-export class AdminUserComponent implements OnInit {
-  isStory = false
+export class AdminUserComponent implements OnInit, OnDestroy {
+  isStory = false;
   user$ = this.store$.select(selectUser);
   story$ = this.store$.select(selectStory);
   date$ = this.store$.select(selectDate);
+  loading = true;
   bonuses!: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     private route: ActivatedRoute,
+    private actions$: Actions,
     private router: Router
   ) {}
 
@@ -63,24 +68,35 @@ export class AdminUserComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe();
+    this.actions$
+      .pipe(
+        ofType(setUser),
+        map(() => (this.loading = false))
+      )
+      .subscribe();
   }
 
   openStory() {
-    this.isStory = true
+    this.isStory = true;
     this.user$.subscribe((user) => {
       if (user != null) this.store$.dispatch(getStory({ id: user.id }));
     });
   }
   closeStory() {
-    this.isStory = false
+    this.isStory = false;
     this.store$.dispatch(setStory({ story: null }));
   }
   useBoneses() {
-    this.user$.subscribe((user) => {
-      if (user != null)
-        this.store$.dispatch(
-          useBonuses({ bonuses: this.bonuses.value.count, id: user.id })
-        );
-    }).unsubscribe();
+    this.user$
+      .subscribe((user) => {
+        if (user != null)
+          this.store$.dispatch(
+            useBonuses({ bonuses: this.bonuses.value.count, id: user.id })
+          );
+      })
+      .unsubscribe();
+  }
+  ngOnDestroy(): void {
+    this.isStory = false
   }
 }

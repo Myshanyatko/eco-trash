@@ -1,9 +1,14 @@
+<tui-loader *ngIf="loading" class="loader"> </tui-loader>
+<div *ngIf="!loading">
 <div class="tui-container" *ngIf="trashs$ | async as trashs">
-  <tui-svg
-    src="tuiIconUndoLarge"
-    class="back"
-    routerLink="/admin/main"
-  ></tui-svg>
+  <div class="icons">
+    <tui-svg
+      src="tuiIconUndoLarge"
+      class="back"
+      routerLink="/admin/main"
+    ></tui-svg>
+    <tui-svg src="tuiIconLogoutLarge" class="logout" routerLink="/"></tui-svg>
+  </div>
   <h2 *ngIf="route.params | async as params">
     Найденные пункты по запросу '{{ params["filter"] }}'
   </h2>
@@ -23,4 +28,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

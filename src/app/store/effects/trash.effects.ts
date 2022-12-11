@@ -50,13 +50,13 @@ export class TrashEffects {
       this.actions$.pipe(
         ofType(setAble),
         map((action) => {
-          if ((action.able == true))
+          if (action.able == true)
             this.alert
-              .showNotificationError('Контейнер разблокирован')
+              .showNotificationError('Контейнер заблокирован')
               .subscribe();
           else
             this.alert
-              .showNotificationSuccess('Контейнер заблокирован')
+              .showNotificationSuccess('Контейнер разблокирован')
               .subscribe();
         })
       ),

@@ -1,6 +1,7 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import {
-  getUsers,
+  getUsers, setUsers,
 } from './../../../store/actions/user.actions';
 import {
   selectUsersList,
@@ -19,10 +20,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
   users$ = this.store$.select(selectUsersList);
+  loading = true
+
   constructor(
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     public route: ActivatedRoute,
+    private actions$: Actions,
     private router: Router
   ) {}
   ngOnInit(): void {
@@ -34,6 +38,13 @@ export class UserListComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe();
+      this.actions$
+      .pipe(
+        ofType(setUsers),
+        map(() => (this.loading = false))
+      )
+      .subscribe();
+  
   }
   getUser(id: number){
     this.router.navigate(['admin/user/'+id])

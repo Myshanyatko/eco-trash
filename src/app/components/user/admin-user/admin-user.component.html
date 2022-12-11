@@ -1,6 +1,15 @@
-<div *ngIf="user$ | async as user" class="container">
+<tui-loader *ngIf="loading" class="loader"> </tui-loader>
+<div *ngIf="!loading">
+  <div *ngIf="user$ | async as user" class="container">
   <div class="user-info-block">
-    <tui-svg src="tuiIconUndoLarge" class="back" routerLink="/admin/main"></tui-svg>
+    <div class="icons">
+      <tui-svg
+        src="tuiIconUndoLarge"
+        class="back"
+        routerLink="/admin/main"
+      ></tui-svg>
+      <tui-svg src="tuiIconLogoutLarge" class="logout" routerLink="/"></tui-svg>
+    </div>
     <div class="avatar">
       <tui-avatar
         *ngIf="!user.photoUrl"
@@ -93,4 +102,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>

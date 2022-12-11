@@ -8,14 +8,17 @@ import {
   TuiDialogModule,
   TuiAlertModule,
   TuiButtonModule,
-  TuiNotificationModule,TuiTextfieldControllerModule, TuiSvgModule
+  TuiNotificationModule,
+  TuiTextfieldControllerModule,
+  TuiSvgModule,
+  TuiLoaderModule,
 } from '@taiga-ui/core';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TuiInputModule,
   TuiAvatarModule,
   TuiAccordionModule,
-  TuiInputCountModule
+  TuiInputCountModule,
 } from '@taiga-ui/kit';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -68,6 +71,7 @@ import { TrashEffects } from './store/effects/trash.effects';
     TuiAccordionModule,
     TuiInputCountModule,
     TuiTextfieldControllerModule,
+    TuiLoaderModule,
     TuiSvgModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects, UserEffects, TrashEffects]),

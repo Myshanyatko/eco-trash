@@ -1,10 +1,15 @@
+<tui-loader *ngIf="loading" class="loader"> </tui-loader>
+<div *ngIf="!loading">
 <div *ngIf="trash$ | async as trash" class="container">
   <div class="user-info-block">
-    <tui-svg
-      src="tuiIconUndoLarge"
-      class="back"
-      routerLink="/admin/main"
-    ></tui-svg>
+    <div class="icons">
+      <tui-svg
+        src="tuiIconUndoLarge"
+        class="back"
+        routerLink="/admin/main"
+      ></tui-svg>
+      <tui-svg src="tuiIconLogoutLarge" class="logout" routerLink="/"></tui-svg>
+    </div>
     <div class="avatar">
       <tui-avatar
         new
@@ -27,7 +32,7 @@
         </div>
         <div class="bonuses">
           <p class="label">Наполненость</p>
-          <p class="item">Стекло:  {{ trash.glassFullness }}%</p>
+          <p class="item">Стекло: {{ trash.glassFullness }}%</p>
           <p class="item">Бумага: {{ trash.paperFullness }}%</p>
           <p class="item">Пластик: {{ trash.plasticFullness }}%</p>
         </div>
@@ -36,14 +41,14 @@
     <div class="able">
       <button
         tuiButton
-        *ngIf="trash.disabled"
+        *ngIf="!trash.disabled"
         (click)="disable()"
         appearance="accent"
         class="abled"
       >
         Заблокировать
       </button>
-      <button tuiButton *ngIf="!trash.disabled" (click)="able()">
+      <button tuiButton *ngIf="trash.disabled" (click)="able()">
         Разблокировать
       </button>
     </div>
@@ -92,4 +97,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>

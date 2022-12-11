@@ -10,3 +10,22 @@ body {
   color: rgb(243, 57, 0);
   margin-top: 5px;
 }
+.icons{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.logout {
+  justify-self: end;
+  margin: 0 0 auto;
+  width: 50px;
+  display: block;
+  color: #f84904;
+  cursor: pointer;
+}
+.loader{
+  background-color: #fff;
+  width: 700px;
+  padding: 200px 0;
+  margin: 50px auto;
+  border-radius: 20px;
+}

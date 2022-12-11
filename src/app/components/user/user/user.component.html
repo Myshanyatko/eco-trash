@@ -1,90 +1,107 @@
-<div *ngIf="user$ | async as user" class="container">
-  <div class="user-info-block">
-    <div class="buttons">
-     <div class=""></div>
-      <tui-svg
-        src="tuiIconLogoutLarge"
-        class="logout"
-        (click)="logout()"
-      ></tui-svg>
-      
-    </div>
-    <div class="avatar">
-      <tui-avatar
-        *ngIf="!user.photoUrl"
-        new
-        class="icon-user-avatar"
-        [rounded]="true"
-        text="avatar"
-        size="xxl"
-        avatarUrl="tuiIconUser"
-      ></tui-avatar>
-      <tui-avatar
-        *ngIf="user.photoUrl"
-        new
-        class="icon-user-avatar"
-        [rounded]="true"
-        text="avatar"
-        size="xxl"
-        [avatarUrl]="user.photoUrl"
-      ></tui-avatar>
-    </div>
 
-    <div class="user-info">
-      <h2 class="name">
-        {{ user.lastName }} {{ user.firstName }}
-        {{ user.patronymic }}
-      </h2>
-      <div class="name-bonuses">
-        <div class="address">
-          <p class="label">Адрес</p>
-          <p class="item">{{ user.address }}</p>
-        </div>
-        <div class="bonuses">
-          <p class="label">Бонусы</p>
-          <p class="item">{{ user.bonuses }}</p>
+  <div *ngIf="user$ | async as user" class="container">
+    <div class="user-info-block">
+      <div class="buttons">
+        <div class=""></div>
+        <tui-svg
+          src="tuiIconLogoutLarge"
+          class="logout"
+          (click)="logout()"
+        ></tui-svg>
+      </div>
+      <div class="avatar">
+        <tui-avatar
+          *ngIf="!user.photoUrl"
+          new
+          class="icon-user-avatar"
+          [rounded]="true"
+          text="avatar"
+          size="xxl"
+          avatarUrl="tuiIconUser"
+        ></tui-avatar>
+        <tui-avatar
+          *ngIf="user.photoUrl"
+          new
+          class="icon-user-avatar"
+          [rounded]="true"
+          text="avatar"
+          size="xxl"
+          [avatarUrl]="user.photoUrl"
+        ></tui-avatar>
+      </div>
+
+      <div class="user-info">
+        <h2 class="name">
+          {{ user.lastName }} {{ user.firstName }}
+          {{ user.patronymic }}
+        </h2>
+        <div class="name-bonuses">
+          <div class="address">
+            <p class="label">Адрес</p>
+            <p class="item">{{ user.address }}</p>
+          </div>
+          <div class="bonuses">
+            <p class="label">Бонусы</p>
+            <p class="item">{{ user.bonuses }}</p>
+          </div>
         </div>
       </div>
+      <p class="bonuses-title">Списать бонусы</p>
+      <form [formGroup]="bonuses" class="bonuse">
+        <div>
+          <label
+            tuiLabel="Введите количество списываемых бонусов"
+            class="input"
+          >
+            <tui-input-count
+              formControlName="count"
+              [tuiTextfieldLabelOutside]="true"
+            ></tui-input-count>
+          </label>
+        </div>
+        <div class="button">
+          <button tuiButton (click)="useBoneses()">Списать</button>
+        </div>
+      </form>
+      <button
+        tuiButton
+        (click)="openStory()"
+        appearance="flat"
+        class="story-button"
+        *ngIf="!isStory"
+      >
+        Показать журнал операций
+      </button>
+      <button
+        tuiButton
+        (click)="closeStory()"
+        appearance="flat"
+        class="story-button"
+        *ngIf="isStory"
+      >
+        Скрыть журнал операций
+      </button>
+      <table class="tui-table" *ngIf="story$ | async as story">
+        <tbody>
+          <tr class="tui-table__tr tui-table__tr_border_none">
+            <th class="tui-table__th">Дата и время</th>
+            <th class="tui-table__th">Действие</th>
+          </tr>
+          <tr
+            class="tui-table__tr tui-table__tr_border_none"
+            *ngFor="let item of story"
+          >
+            <td class="tui-table__td">
+              <time datetime="item.date"
+                >{{ item.date.slice(0, 10) }}
+                {{ item.date.slice(11, 16) }}</time
+              >
+            </td>
+            <td class="tui-table__td">
+              {{ item.operation }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <button
-      tuiButton
-      (click)="openStory()"
-      appearance="flat"
-      class="story-button"
-      *ngIf="!isStory"
-    >
-      Показать журнал операций
-    </button>
-    <button
-      tuiButton
-      (click)="closeStory()"
-      appearance="flat"
-      class="story-button"
-      *ngIf="isStory"
-    >
-      Скрыть журнал операций
-    </button>
-    <table class="tui-table" *ngIf="story$ | async as story">
-      <tbody>
-        <tr class="tui-table__tr tui-table__tr_border_none">
-          <th class="tui-table__th">Дата и время</th>
-          <th class="tui-table__th">Действие</th>
-        </tr>
-        <tr
-          class="tui-table__tr tui-table__tr_border_none"
-          *ngFor="let item of story"
-        >
-          <td class="tui-table__td">
-            <time datetime="item.date"
-              >{{ item.date.slice(0, 10) }} {{ item.date.slice(11, 16) }}</time
-            >
-          </td>
-          <td class="tui-table__td">
-            {{ item.operation }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-</div>

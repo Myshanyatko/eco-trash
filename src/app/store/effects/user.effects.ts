@@ -9,11 +9,9 @@ import {
   useBonuses,
   setBonuses,
 } from './../actions/user.actions';
-import { AuthService } from './../../services/auth.service';
 import { AlertService } from './../../services/alert.service';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
-import { login, loginSuccess } from './../actions/auth.actions';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, mergeMap, catchError, EMPTY } from 'rxjs';
@@ -81,7 +79,7 @@ export class UserEffects {
         ofType(setBonuses),
         map(() =>
           this.alert
-            .showNotificationSuccess('Баллы успешно списаны')
+            .showNotificationSuccess('Бонусы успешно списаны')
             .subscribe()
         )
       ),

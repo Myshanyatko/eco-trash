@@ -1,8 +1,10 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import {
   getUser,
   getStory,
   setStory,
+  useBonuses,
 } from './../../../store/actions/user.actions';
 import {
   selectUser,
@@ -26,7 +28,11 @@ export class UserComponent implements OnInit {
   user$ = this.store$.select(selectUser);
   story$ = this.store$.select(selectStory);
   date$ = this.store$.select(selectDate);
+  bonuses!: FormGroup;
+  loading= true
+
   constructor(
+    private fb: FormBuilder,
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     private route: ActivatedRoute,
@@ -34,14 +40,20 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.bonuses = this.fb.group({
+      count: [],
+    });
     this.route.params
       .pipe(
         tap(({ id }) => {
+          this.loading = false
           this.store$.dispatch(getUser({ id: Number(id) }));
         }),
         takeUntil(this.destroy$)
       )
       .subscribe();
+      console.log(this.loading);
+      
   }
 
   openStory() {
@@ -56,5 +68,14 @@ export class UserComponent implements OnInit {
   }
   logout(){
     this.router.navigate([''])
+  }
+  useBoneses() {
+    window.open('https://www.gosuslugi.ru/', "_blank");
+    this.user$.subscribe((user) => {
+      if (user != null)
+        this.store$.dispatch(
+          useBonuses({ bonuses: this.bonuses.value.count, id: user.id })
+        );
+    }).unsubscribe();
   }
 }

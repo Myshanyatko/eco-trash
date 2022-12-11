@@ -1,5 +1,6 @@
+import { setTrashs } from './../../../store/actions/trash.actions';
 import { selectTrashs } from './../../../store/selectors/trash.selector';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap, map } from 'rxjs/operators';
 import {
   getUsers,
 } from './../../../store/actions/user.actions';
@@ -12,6 +13,7 @@ import { AppState } from 'src/app/store/state/app.state';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getTrashs } from 'src/app/store/actions/trash.actions';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-trash-list',
@@ -21,10 +23,13 @@ import { getTrashs } from 'src/app/store/actions/trash.actions';
 })
 export class TrashListComponent implements OnInit {
   trashs$ = this.store$.select(selectTrashs);
+  loading = true
+  
   constructor(
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     public route: ActivatedRoute,
+    private actions$: Actions,
     private router: Router
   ) {}
   ngOnInit(): void {
@@ -34,6 +39,12 @@ export class TrashListComponent implements OnInit {
           this.store$.dispatch(getTrashs({ filter: filter }));
         }),
         takeUntil(this.destroy$)
+      )
+      .subscribe();
+      this.actions$
+      .pipe(
+        ofType(setTrashs),
+        map(() => (this.loading = false))
       )
       .subscribe();
   }

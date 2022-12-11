@@ -11,6 +11,8 @@ import { AppState } from 'src/app/store/state/app.state';
 })
 export class AuthComponent implements OnInit {
   authForm!: FormGroup;
+  errors = false;
+
   constructor(private fb: FormBuilder, private store$: Store<AppState>) {}
 
   ngOnInit(): void {
@@ -20,7 +22,19 @@ export class AuthComponent implements OnInit {
     });
   }
   login(): void {
-    this.store$.dispatch(login({email: this.authForm.value.login, password: this.authForm.value.password}))
-    
+    if (
+      this.authForm.get('login')?.invalid ||
+      this.authForm.get('password')?.invalid
+    )
+      this.errors = true;
+    else {
+      this.store$.dispatch(
+        login({
+          email: this.authForm.value.login,
+          password: this.authForm.value.password,
+        })
+      );
+      this.errors = false;
+    }
   }
 }

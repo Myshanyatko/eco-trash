@@ -5,15 +5,37 @@
       Введите логин
       <input tuiTextfield type="login" />
     </tui-input>
+    <div
+      class="error-message"
+      *ngIf="
+        authForm.get('password')?.invalid &&
+        (authForm.get('password')?.dirty ||
+          authForm.get('password')?.touched ||
+          errors)
+      "
+    >
+      <span>Обязательное поле</span>
+    </div>
     <tui-input formControlName="password" class="input">
       Введите пароль
       <input tuiTextfield type="password" />
     </tui-input>
+    <div
+      class="error-message"
+      *ngIf="
+        authForm.get('password')?.invalid &&
+        (authForm.get('password')?.dirty ||
+          authForm.get('password')?.touched ||
+          errors)
+      "
+    >
+      <span>Обязательное поле</span>
+    </div>
     <button
       tuiButton
       type="submit"
       size="m"
-      class="login"
+      class="login-button"
     >
       Войти
     </button>

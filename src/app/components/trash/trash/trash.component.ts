@@ -1,4 +1,5 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
+import { takeUntil, tap, map } from 'rxjs/operators';
 import {
   getUser,
   getStory,
@@ -15,7 +16,7 @@ import { AppState } from 'src/app/store/state/app.state';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { selectStoryTrash, selectTrash } from 'src/app/store/selectors/trash.selector';
-import { getAble, getStoryTrash, getTrash, setStoryTrash } from 'src/app/store/actions/trash.actions';
+import { getAble, getStoryTrash, getTrash, setStoryTrash, setTrash } from 'src/app/store/actions/trash.actions';
 
 @Component({
   selector: 'app-trash',
@@ -27,11 +28,13 @@ export class TrashComponent implements OnInit {
   isStory = false;
   trash$ = this.store$.select(selectTrash);
   story$ = this.store$.select(selectStoryTrash);
-  
+  loading = true
+
   constructor(
     private store$: Store<AppState>,
     private destroy$: TuiDestroyService,
     private route: ActivatedRoute,
+    private actions$: Actions,
     private router: Router
   ) {}
 
@@ -42,6 +45,12 @@ export class TrashComponent implements OnInit {
           this.store$.dispatch(getTrash({ id: Number(id) }));
         }),
         takeUntil(this.destroy$)
+      )
+      .subscribe();
+      this.actions$
+      .pipe(
+        ofType(setTrash),
+        map(() => (this.loading = false))
       )
       .subscribe();
   }
@@ -57,21 +66,21 @@ export class TrashComponent implements OnInit {
     this.store$.dispatch(setStoryTrash({ story: null }));
   }
   able() {
-    // this.trash$
-    //   .subscribe((trash) => {
-    //     if (trash != null)
-    //       this.store$.dispatch(getAble({ able: true, id: trash.id }));
-    //   })
-    //   .unsubscribe();
-    this.store$.dispatch(getAble({ able: true, id: 21 }));
+    this.trash$
+      .subscribe((trash) => {
+        if (trash != null)
+          this.store$.dispatch(getAble({ able: false, id: trash.id }));
+      })
+      .unsubscribe();
+    // this.store$.dispatch(getAble({ able: f, id: 21 }));
   }
   disable() {
-    // this.trash$
-    // .subscribe((trash) => {
-    //   if (trash != null)
-    //     this.store$.dispatch(getAble({ able: false, id: trash.id }));
-    // })
-    // .unsubscribe();
-    this.store$.dispatch(getAble({ able: false, id: 21 }));
+    this.trash$
+    .subscribe((trash) => {
+      if (trash != null)
+        this.store$.dispatch(getAble({ able: true, id: trash.id }));
+    })
+    .unsubscribe();
+    // this.store$.dispatch(getAble({ able: true, id: 21 }));
 }
 }
